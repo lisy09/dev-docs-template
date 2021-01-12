@@ -20,26 +20,27 @@ const processData = (filePath, process) => {
   fs.writeFileSync(filePath, processesdData, { encoding: 'utf8' })
 }
 
-const offlinifyPage = fileName => {
-  processData(path.resolve(distPath, fileName), data => {
+const offlinifyPage = (filePath, relativePath) => {
+  console.log(`offlinifying page: ${filePath} ${relativePath}`)
+  processData(filePath, data => {
     // Links to root
-    data = data.replace(/(href)="\/"/g, '$1="./index.html"')
+    data = data.replace(/(href)="\/"/g, (_,p1) => `${p1}="${relativePath}/index.html"`)
     // Links to root anchors
-    data = data.replace(/(href)="\/(#[^"]*)"/g, '$1="./index.html$2"')
+    data = data.replace(/(href)="\/(#[^"]*)"/g, (_,p1,p2) => `${p1}="${relativePath}/index.html${p2}"`)
     // Regular internal links
     const bodyMatch = data.match(/<body>(.*)<\/body>/ms)
     if (bodyMatch) {
-      let body = bodyMatch[1].replace(/(href)="\/([^"#]*?)(\.html)?(#[^"]*)"/g, (_, p1, p2, p3, p4) => `${p1}="./${p2}${p3 || '.html'}${p4}"`)
-      body = body.replace(/(href)="\/([^"]*?)(\.html)?"/g, (_, p1, p2, p3) => `${p1}="./${p2}${p3 || '.html'}"`)
+      let body = bodyMatch[1].replace(/(href)="\/([^"#]*?)(\.html)?(#[^"]*)"/g, (_, p1, p2, p3, p4) => `${p1}="${relativePath}/${p2}${p3 || 'index.html'}${p4}"`)
+      body = body.replace(/(href)="\/([^"]*?)(\.html)?"/g, (_, p1, p2, p3) => `${p1}="${relativePath}/${p2}${p3 || 'index.html'}"`)
       data = data.replace(/(<body>).*(<\/body>)/ms, `$1${body.replace(/\$/g, '$$$$')}$2`)
     }
     // Other links (styles and scripts)
-    data = data.replace(/(href|src)="(\/[^"]*)"/g, '$1=".$2"')
+    data = data.replace(/(href|src)="(\/[^"]*)"/g, (_,p1,p2) => `${p1}="${relativePath}${p2}"`)
 
     return data
   })
 
-  console.log(`Page offlinified: ${fileName}`)
+  console.log(`Page offlinified: ${filePath}`)
 }
 
 const offlinifyStyle = fileName => {
@@ -81,12 +82,22 @@ const offlinifyBarsScript = fileName => {
   console.log(`Script offlinified: ${fileName}`)
 }
 
-const pages = fs.readdirSync(distPath)
-pages.forEach(page => {
-  if (page.endsWith('.html')) {
-    offlinifyPage(page)
-  }
-})
+const offlinifyPages = (dirName, relativePath) => {
+  const pages = fs.readdirSync(dirName)
+  pages.forEach(page => {
+    let filePath = path.resolve(dirName, page)
+    if (page.endsWith('.html')) {
+      offlinifyPage(filePath, relativePath)
+    } else {
+      if (fs.lstatSync(filePath).isDirectory()) {
+        offlinifyPages(filePath, relativePath === '.' ? '..': relativePath + '/..')
+      }
+    }
+  })
+  console.log(`Pages in Dir offlinified: ${dirName}`)
+}
+
+offlinifyPages(distPath, '.')
 
 const styles = fs.readdirSync(stylesPath)
 styles.forEach(style => offlinifyStyle(style))

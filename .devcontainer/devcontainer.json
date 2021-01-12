@@ -17,7 +17,8 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"yzhang.markdown-all-in-one",
-		"hediet.vscode-drawio"
+		"hediet.vscode-drawio",
+		"jebbs.plantuml"
 	],
 	"workspaceMount":"",
 	"workspaceFolder": "/workspace",
@@ -29,5 +30,5 @@
 	// "postCreateCommand": "pip3 install --user -r requirements.txt",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	// "remoteUser": "vscode"
+	"remoteUser": "node"
 }

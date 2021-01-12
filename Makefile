@@ -31,3 +31,23 @@ dev-local:
 .PHONY: build-local
 build-local:
 	bash $(RUN_SCRIPTS_PATH)/vuepress_build_local.sh 
+
+.PHONY: pdf-local
+pdf-local:
+	bash $(RUN_SCRIPTS_PATH)/vuepress_pdf_local.sh
+
+.PHONY: pdf
+pdf:
+	bash $(RUN_SCRIPTS_PATH)/vuepress_pdf.sh
+
+.PHONY: preview
+preview:
+	bash $(RUN_SCRIPTS_PATH)/vuepress_preview.sh 
+
+.PHONY: stop-preview
+stop-preview:
+	bash $(RUN_SCRIPTS_PATH)/vuepress_preview_stop.sh 
+
+.PHONY: build
+build:
+	bash $(RUN_SCRIPTS_PATH)/vuepress_build.sh 
