@@ -16,4 +16,4 @@ It provide these features:
 - Create more complicated diagrams & images by draw.io inside VSCode
 - Several docs template
 
-For further docs about this project, please check `./docs/index.html`.
+For further docs about this project, please check `./docs/index.html` or [https://lisy09.github.io/dev-docs-template/](https://lisy09.github.io/dev-docs-template/).
