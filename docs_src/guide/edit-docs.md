@@ -46,7 +46,7 @@ To create and edit a .svg, we can simply:
 
 The default sites use VuePress default theme, which include the Navbar/Sidebar features.
 
-Relative configuration file is in `$DOCS_RELATIVE_PATH/.vuepress/config.js` (`$DOCS_RELATIVE_PATH` defined in `./.env`, default `docs`).
+Relative configuration file is in `$DOCS_RELATIVE_PATH/.vuepress/config.js` (`$DOCS_RELATIVE_PATH` defined in `./.env`, default `docs_src`).
 
 Please check these highlighted parts
 

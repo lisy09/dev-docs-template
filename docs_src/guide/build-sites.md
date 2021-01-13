@@ -30,7 +30,7 @@ Run this command:
 make build
 ```
 
-The built result is in `$DOCS_RELATIVE_PATH/.vuepress/dist` (defined in `./.env`, default `docs`).
+The built result is in `$DOCS_RELATIVE_PATH/.vuepress/dist` (defined in `./.env`, default `docs_src`).
 
 This result is also offlinified by `./docker/offlinify.js` so that support `file://` access, which means 
 that you can package `$DOCS_RELATIVE_PATH/.vuepress/dist` into a zip file and distributed it as an offline documentation. (Please noted that search is not support when using file:// access).
@@ -45,4 +45,4 @@ Please noticed that current `./docker/offlinify.js` only supports current direct
 make pdf
 ```
 
-The built result is in `$DOCS_RELATIVE_PATH/site.pdf` (defined in `./.env`, default `docs`).
+The built result is in `$DOCS_RELATIVE_PATH/site.pdf` (defined in `./.env`, default `docs_src`).
