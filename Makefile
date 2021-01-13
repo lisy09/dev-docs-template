@@ -51,3 +51,7 @@ stop-preview:
 .PHONY: build
 build:
 	bash $(RUN_SCRIPTS_PATH)/vuepress_build.sh 
+
+.PHONY: github-pages
+github-pages:
+	bash $(RUN_SCRIPTS_PATH)/build_github_pages.sh 

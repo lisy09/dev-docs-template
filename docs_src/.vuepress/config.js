@@ -1,7 +1,5 @@
-const path = require('path')
 module.exports = {
-    // hydrate: false,
-    // base: path.resolve(__dirname, './dist'),
+    base: process.env.DOCS_BASEURL || '/',
     markdown: {
         extendMarkdown: md => {
             md.use(require('markdown-it-plantuml'))
