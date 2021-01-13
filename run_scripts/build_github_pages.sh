@@ -12,7 +12,7 @@ instance=$(docker run -d --rm \
 docker cp ${ROOT_DIR}/${DOCS_RELATIVE_PATH} $instance:${WOKRKING_PACKAGE_PATH}/${DOCS_RELATIVE_PATH}
 
 docker exec $instance bash -c "cd ${WOKRKING_PACKAGE_PATH} \
-    && DOCS_BASEURL=/dev-docs-template npx vuepress build ${DOCS_RELATIVE_PATH}"
+    && DOCS_BASEURL=/dev-docs-template/ npx vuepress build ${DOCS_RELATIVE_PATH}"
 
 rm -rf ${ROOT_DIR}/docs
 docker cp $instance:${WOKRKING_PACKAGE_PATH}/${DOCS_RELATIVE_PATH}/.vuepress/dist ${ROOT_DIR}/docs
