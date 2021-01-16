@@ -3,8 +3,11 @@ ifneq (,$(wildcard ./.env))
     export
 endif
 
-BUILD_SCRIPTS_PATH = ./build_scripts
-RUN_SCRIPTS_PATH = ./run_scripts
+mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+CURRENT_DIR := $(patsubst %/,%,$(dir $(mkfile_path)))
+
+BUILD_SCRIPTS_PATH = ${CURRENT_DIR}/build_scripts
+RUN_SCRIPTS_PATH = ${CURRENT_DIR}/run_scripts
 
 .PHONY: all
 all: base 
